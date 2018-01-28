@@ -60,14 +60,12 @@ function [] = twos_fn(x,L,B)
     end
 
     twos = strcat(out(1:L),out(L+2:end));
-    tmp = 1;
+    
+    %+1
     for i=numel(twos):-1:1
-        if tmp == 0
-            break;
-        end
         if twos(i) == '0'
             twos(i) = '1';
-            tmp = 0;
+            break;
         elseif twos(i) == '1'
             twos(i) = '0';
         end
@@ -78,16 +76,13 @@ function [] = twos_fn(x,L,B)
     %%%%%%%%%%%%%%%%%%%%%%%%%% bin2dec %%%%%%%%%%%%%%%%%%%%%%%%%%
     out_twos = twos;
     twos = strcat(twos(1:L),twos(L+2:end));
-    tmp = 1;
+    
     for i=numel(twos):-1:1
-        if tmp == 0
-            break;
-        end
         if twos(i) == '0'
             twos(i) = '1';
         elseif twos(i) == '1'
             twos(i) = '0';
-            tmp = 0;
+            break;
         end
     end
 
@@ -99,7 +94,7 @@ function [] = twos_fn(x,L,B)
     if out(1) == '1'
         negative = true;
     end
-    if x < 0
+    if negative
         for i=1:1:numel(out)
             if out(i) == '1'
                 out(i) = '0';

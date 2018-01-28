@@ -1,20 +1,16 @@
 function [] = sign_fn(x,L,B)
     count = 1;
-    if x >= 0 
+    if x >= 0 %????????????????????????????????Integer
         I = floor(x);
     else
         I = ceil(x);
     end
 
     tmp = abs(x);
-    while tmp >= 1
+    while tmp >= 1 %???Integer??????????????Fraction
         tmp = tmp - 1;
     end
-    if tmp == 0
-        F = 0;
-    else
-        F = tmp;
-    end
+    F = tmp;
 
     %%% Integer and sign
     if I >= 0
@@ -24,13 +20,13 @@ function [] = sign_fn(x,L,B)
     end
     Ls = dec2bin(abs(I));
     while numel(Ls) < L 
-        Ls = strcat('0', Ls);
+        Ls = strcat('0', Ls); %chain string horizontally
     end
 
     out = strcat(Sign,Ls,'.');
 
     %%% Fraction
-    if F == 0
+    if F == 0 %??????????fraction????0?????????????0 ??????????0 ??????????????????????
         for i=1:1:B
             out = strcat(out,'0');
         end
@@ -50,7 +46,6 @@ function [] = sign_fn(x,L,B)
     fprintf('x = %d <==> %s\n', x, out);
     %%% bin2dec
     %%% integer part
-    integer = true;
     out2 = 0;
     count = L-1;
     for i=2:1:1+L 

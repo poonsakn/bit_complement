@@ -15,13 +15,8 @@ function [] = ones_fn(x,L,B)
     else
         F = tmp;
     end
-
-    %%% Integer and sign
-    % if I >= 0
-    %     Sign = '0';
-    % else 
-    %     Sign = '1';
-    % end
+    
+    %%% Integer
     Ls = dec2bin(abs(I));
     while numel(Ls) < L 
         Ls = strcat('0', Ls);
@@ -53,8 +48,6 @@ function [] = ones_fn(x,L,B)
                 out(i) = '0';
             elseif out(i) == '0'
                 out(i) = '1';
-            else
-                out(i) = out(i);
             end
         end
     end
@@ -66,7 +59,7 @@ function [] = ones_fn(x,L,B)
     if out(1) == '1'
         negative = true;
     end
-    if x < 0
+    if negative
         for i=1:1:numel(out)
             if out(i) == '1'
                 out(i) = '0';
@@ -79,7 +72,6 @@ function [] = ones_fn(x,L,B)
     end
 
     %%% integer part
-    integer = true;
     out2 = 0;
     count = L-1;
     for i=1:1:L 
@@ -88,16 +80,12 @@ function [] = ones_fn(x,L,B)
     %     disp(out2);
         count = count - 1;
     end
-    % disp(out2);
 
     %%% fraction part
     count = 1;
 
-    for i=2+L:1:1+L+B
+    for i=2+L:1:1+L+B %2+L is ?????????????+????????????????B+L
         tmp = str2double(out(i));    
-    %     disp(out2);
-    %     disp(tmp);
-    %     disp((tmp)*(2^(-count)));
         out2 = out2+(tmp)*(2^(-count));
         count = count + 1;
     end
